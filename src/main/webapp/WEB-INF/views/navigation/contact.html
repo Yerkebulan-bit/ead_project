@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+ <head>
+	<title>Contact Us</title>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="css/style.min.css">
+	<link rel="shortcut icon" href="favicon.ico">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div class="wrapper">
+    <main class="page">
+      <header class="header">
+  <div class="header__container _container">
+    <div class="header__contact">
+      <a href="tel:123456789">
+        <span class="fa fa-phone"></span>
+        123 456 789
+      </a>
+    </div>
+    <div class="header__body">
+      <div class="header__logo">
+        <a href="" class="header__logo"><img th:src="@{/img/logo.svg}" alt="" /></a>
+      </div>
+      <div class="menu__icon icon-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="header__menu menu">
+        <nav class="menu__nav">
+          <ul class="menu__list">
+            <li>
+              <a th:href="@{/}" id="home" class="menu__link _active">HOME</a>
+            </li>
+            <li>
+              <a th:href="@{/movies}" id="movies" class="menu__link">WHAT IS ON</a>
+            </li>
+            <li><a th:href="@{/news}" id="news" class="menu__link">NEWS</a></li>
+            <li th:switch="${session.userRole}">
+              <a th:case="null" th:href="@{/login}" id="about" class="menu__link">LOGIN</a>
+              <a th:case="'admin'" th:href="@{/logout}" class="menu__link">ADMIN</a>
+              <a th:case="*" th:href="@{/logout}" th:text="${session.userRole}" class="menu__link">USER</a>
+            </li>
+            <li>
+              <a th:href="@{/contact}" id="contact" class="menu__link"
+              >CONTACT US</a
+              >
+            </li>
+          </ul>
+          <ul class="menu__social">
+            <li>
+              <a href=""><span class="fa fa-facebook-f"></span></a>
+            </li>
+            <li>
+              <a href=""><span class="fa fa-twitter"></span></a>
+            </li>
+            <li>
+              <a href=""><span class="fa fa-instagram"></span></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="page-top">
+          <div class="page-top__container _container">
+              <div class="page-top__text">HAVE ANY QUESTIONS?</div>
+              <h1 class="page-top__title">Please contact us</h1>
+          </div>
+      </div>
+      <div class="contact">
+         <div class="contact__container _container">
+             <div class="contact__map">
+              <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5813.467273143347!2d76.82170809999998!3d43.236043999999985!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x38836e7d16c5cbab%3A0x3d44668fad986d76!2z0JDQu9C80LDRgtGL!5e0!3m2!1sru!2skz!4v1652112316578!5m2!1sru!2skz" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+             </div>
+             <div class="contact__body">
+              <h2 class="contact__title">SEND A MESSAGE</h2>
+              <form action="" class="contact__form contact-form">
+                <div class="contact-form__item">
+                  <label for="">NAME<span>*</span></label>
+                  <input type="text" class="contact-form__input">
+                </div>
+                <div class="contact-form__item">
+                  <label for="">EMAIL<span>*</span></label>
+                  <input type="email" class="contact-form__input">
+                </div>
+                <div class="contact-form__item">
+                  <label for="">WHERE DID YOU HEAR ABOUT US?</label>
+                  <input type="email" class="contact-form__input">
+                </div>
+                <div class="contact-form__item">
+                  <label for="">WHERE DID YOU HEAR ABOUT US?</label>
+                  <textarea name="" id="" cols="30" rows="10" class="contact-form__textarea">
+                  </textarea>
+                </div>
+                <div class="contact-form__item">
+                  <input type="submit" class="contact-form__button" value="Send message">
+                </div>
+              </form>
+              <div class="contact__info contact-info">
+                <div class="contact-info__item">
+                  <div class="contact-info__icon"><i class="fa fa-map-marker"></i></div>
+                  <div class="contact-info__text">
+                    <div class="contact-info__title">Address</div>
+                    <div class="contact-info__small-text">342 Sloane St, London, W1D 3NE
+                    </div>
+                  </div>
+                </div>
+                <div class="contact-info__item">
+                  <div class="contact-info__icon"><i class="fa fa-envelope-open"></i></div>
+                  <div class="contact-info__text">
+                    <div class="contact-info__title">Email</div>
+                    <div class="contact-info__small-text">cinemal_planet@gmail.com
+                    </div>
+                  </div>
+                </div>
+                <div class="contact-info__item">
+                  <div class="contact-info__icon"><i class="fa fa-phone"></i></div>
+                  <div class="contact-info__text">
+                    <div class="contact-info__title">Telephone</div>
+                    <div class="contact-info__small-text">+7-747-852-48-15
+                    </div>
+                  </div>
+                </div>
+              </div>
+               </div>
+             </div>
+         </div> 
+      </div>
+      <div class="contact-us">
+        <h2 class="contact-us__text">Need help? Contact our support team on</h2>
+        <h1 class="contact-us__phone">0330 123 4567</h1>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+  <div class="footer__container _container">
+    <div class="footer__body">
+      <div class="footer__column">
+        <div class="footer__title">GET IN TOUCH</div>
+        <ul class="footer__list">
+          <li><a href="index.html" class="footer__link">Home</a></li>
+          <li><a href="movies.html" class="footer__link">Movies</a></li>
+          <li><a href="news.html" class="footer__link">News</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <div class="footer__title">ABOUT OUR ORGANISATION</div>
+        <ul class="footer__list">
+          <li><a href="contact.html" class="footer__link">About</a></li>
+          <li><a href="contact.html" class="footer__link">FAQs</a></li>
+          <li><a href="contact.html" class="footer__link">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <div class="footer__title">LEGAL STUFF</div>
+        <ul class="footer__list">
+          <li><a href="contact.html" class="footer__link">FAQs</a></li>
+          <li>
+            <a href="contact.html" class="footer__link">Give us feedback</a>
+          </li>
+          <li><a href="contact.html" class="footer__link">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <div class="footer__title">CONNECT WITH US</div>
+        <ul class="footer__list">
+          <li>
+            <a href="" class="footer__link"
+              ><span class="fa fa-facebook-f"></span>Facebook</a
+            >
+          </li>
+          <li>
+            <a href="" class="footer__link"
+              ><span class="fa fa-twitter"></span>Twitter</a
+            >
+          </li>
+          <li>
+            <a href="" class="footer__link"
+              ><span class="fa fa-instagram"></span>Instagram</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">2022 © Amanis Paltiyeva</div>
+  </div>
+</footer>
+
+  </div>
+  <div class="popup popup_popup">
+	<div class="popup__content">
+		<div class="popup__body">
+			<div class="popup__close"></div>
+		</div>
+	</div>
+</div>
+<div class="popup popup_massagename-message">
+	<div class="popup__content">
+		<div class="popup__body">
+			<div class="popup__close"></div>
+		</div>
+	</div>
+</div>
+<div class="popup popup_video">
+	<div class="popup__content">
+		<div class="popup__body">
+			<div class="popup__close popup__close_video"></div>
+			<div class="popup__video _video"></div>
+		</div>
+	</div>
+</div>
+
+  <script src="https://kit.fontawesome.com/68898b3846.js" crossorigin="anonymous"></script>
+  <!-- Swiper -->
+<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+<script src="js/vendors.min.js"></script>
+<script src="js/app.min.js"></script>
+</body>
+
+</html>

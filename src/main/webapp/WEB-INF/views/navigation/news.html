@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+ <head>
+	<title>News</title>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" href="css/style.min.css">
+	<link rel="shortcut icon" href="favicon.ico">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div class="wrapper">
+    <main class="page">
+      <header class="header">
+  <div class="header__container _container">
+    <div class="header__contact">
+      <a href="tel:123456789">
+        <span class="fa fa-phone"></span>
+        123 456 789
+      </a>
+    </div>
+    <div class="header__body">
+      <div class="header__logo">
+        <a href="" class="header__logo"><img th:src="@{/img/logo.svg}" alt="" /></a>
+      </div>
+      <div class="menu__icon icon-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="header__menu menu">
+        <nav class="menu__nav">
+          <ul class="menu__list">
+            <li>
+              <a th:href="@{/}" id="home" class="menu__link _active">HOME</a>
+            </li>
+            <li>
+              <a th:href="@{/movies}" id="movies" class="menu__link">WHAT IS ON</a>
+            </li>
+            <li><a th:href="@{/news}" id="news" class="menu__link">NEWS</a></li>
+            <li th:switch="${session.userRole}">
+              <a th:case="null" th:href="@{/login}" id="about" class="menu__link">LOGIN</a>
+              <a th:case="'admin'" th:href="@{/logout}" class="menu__link">ADMIN</a>
+              <a th:case="*" th:href="@{/logout}" th:text="${session.userRole}" class="menu__link">USER</a>
+            </li>
+            <li>
+              <a th:href="@{/contact}" id="contact" class="menu__link"
+              >CONTACT US</a>
+            </li>
+          </ul>
+          <ul class="menu__social">
+            <li>
+              <a href=""><span class="fa fa-facebook-f"></span></a>
+            </li>
+            <li>
+              <a href=""><span class="fa fa-twitter"></span></a>
+            </li>
+            <li>
+              <a href=""><span class="fa fa-instagram"></span></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="page-top">
+          <div class="page-top__container _container">
+              <div class="page-top__text">VERY LATEST</div>
+              <h1 class="page-top__title">Movie news</h1>
+          </div>
+      </div>
+
+      <div class="news">
+        <div class="news__container _container">
+          <div class="news__body">
+            <div class="news__items">
+              <div class="news__item">
+                <div class="news__image _ibg">
+                  <a href=""><img src="./img/main-slider/Slide_1.jpg" alt=""></a>
+                </div>
+                <div class="news__tags">
+                  <a href="" class="news__tag">COMING SOON</a>
+                  <a href="" class="news__tag">COMING SOON</a>
+                  <a href="" class="news__tag">COMING SOON</a>
+                </div>
+                <h2 class="news__title">Marine corp 2 picks up BAFTA</h2>
+                <div class="news__text">Are you one of those people who aspire to study abroad? Is your pocket not too
+                  friendly to your desire?! Well, you surely are in for a treat now! There's good news for all of you
+                  out there! There are hundreds and thousands of study abroad scholarship</div>
+                <a href="" class="news__see-more">Read Full Post</a>
+              </div>
+              <div class="news__item">
+                <div class="news__image _ibg">
+                  <a href=""><img src="./img/main-slider/Slide_1.jpg" alt=""></a>
+                </div>
+                <div class="news__tags">
+                  <a href="" class="news__tag">COMING SOON</a>
+                  <a href="" class="news__tag">COMING SOON</a>
+                  <a href="" class="news__tag">COMING SOON</a>
+                </div>
+                <h2 class="news__title">Marine corp 2 picks up BAFTA</h2>
+                <div class="news__text">Are you one of those people who aspire to study abroad? Is your pocket not too
+                  friendly to your desire?! Well, you surely are in for a treat now! There's good news for all of you
+                  out there! There are hundreds and thousands of study abroad scholarship</div>
+                <a href="" class="news__see-more">Read Full Post</a>
+              </div>
+            </div>
+            <div class="news__sidebar news-sidebar">
+              <div class="news-sidebar__search">
+                <input type="text" placeholder="Type to search">
+                <i class="fa fa-search"></i>
+              </div>
+              <div class="news-sidebar__item">
+                <div class="news-sidebar__title">
+                  Category
+                </div>
+                <ul class="news-sidebar__list">
+                  <li><a href="">Category 1</a></li>
+                  <li><a href="">Category 2</a></li>
+                  <li><a href="">Category 3</a></li>
+                  <li><a href="">Category 4</a></li>
+                </ul>
+              </div>
+              <div class="news-sidebar__item">
+                <div class="news-sidebar__title">
+                  TAGS
+                </div>
+                <ul class="news-sidebar__tags">
+                  <li><a href="">TAGS 1</a></li>
+                  <li><a href="">TAGS 2</a></li>
+                  <li><a href="">TAGS 3</a></li>
+                  <li><a href="">TAGS 4</a></li>
+                  <li><a href="">TAGS 5</a></li>
+                  <li><a href="">TAGS 6</a></li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+  <div class="footer__container _container">
+    <div class="footer__body">
+      <div class="footer__column">
+        <div class="footer__title">GET IN TOUCH</div>
+        <ul class="footer__list">
+          <li><a href="index.html" class="footer__link">Home</a></li>
+          <li><a href="movies.html" class="footer__link">Movies</a></li>
+          <li><a href="news.html" class="footer__link">News</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <div class="footer__title">ABOUT OUR ORGANISATION</div>
+        <ul class="footer__list">
+          <li><a href="contact.html" class="footer__link">About</a></li>
+          <li><a href="contact.html" class="footer__link">FAQs</a></li>
+          <li><a href="contact.html" class="footer__link">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <div class="footer__title">LEGAL STUFF</div>
+        <ul class="footer__list">
+          <li><a href="contact.html" class="footer__link">FAQs</a></li>
+          <li>
+            <a href="contact.html" class="footer__link">Give us feedback</a>
+          </li>
+          <li><a href="contact.html" class="footer__link">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <div class="footer__title">CONNECT WITH US</div>
+        <ul class="footer__list">
+          <li>
+            <a href="" class="footer__link"
+              ><span class="fa fa-facebook-f"></span>Facebook</a
+            >
+          </li>
+          <li>
+            <a href="" class="footer__link"
+              ><span class="fa fa-twitter"></span>Twitter</a
+            >
+          </li>
+          <li>
+            <a href="" class="footer__link"
+              ><span class="fa fa-instagram"></span>Instagram</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">2022 © Amanis Paltiyeva</div>
+  </div>
+</footer>
+
+  </div>
+  <div class="popup popup_popup">
+	<div class="popup__content">
+		<div class="popup__body">
+			<div class="popup__close"></div>
+		</div>
+	</div>
+</div>
+<div class="popup popup_massagename-message">
+	<div class="popup__content">
+		<div class="popup__body">
+			<div class="popup__close"></div>
+		</div>
+	</div>
+</div>
+<div class="popup popup_video">
+	<div class="popup__content">
+		<div class="popup__body">
+			<div class="popup__close popup__close_video"></div>
+			<div class="popup__video _video"></div>
+		</div>
+	</div>
+</div>
+
+  <script src="https://kit.fontawesome.com/68898b3846.js" crossorigin="anonymous"></script>
+  <!-- Swiper -->
+<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+<script src="js/vendors.min.js"></script>
+<script src="js/app.min.js"></script>
+</body>
+
+</html>

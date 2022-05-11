@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+ <head>
+	<title>Login</title>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" th:href="@{/css/style.min.css}">
+	<link rel="shortcut icon" th:href="@{favicon.ico}">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div class="wrapper">
+    <main class="page">
+        <div class="login">
+            <div class="login__container _container">
+                    <h1 class="login__title">Login</h1>
+                    <form th:action="@{/login}" th:method="post" class="login__form">
+                        <div class="login__item">
+                            <label for="username">Username</label>
+                            <input type="text" class="login__input" name="username" id="username">
+                            <p th:if="errorMsg != null" th:text="${errorMsg}"></p>
+                        </div>
+                        <div class="login__item">
+                            <label for="password">Password</label>
+                            <input type="password" class="login__input" name="password" id="password">
+                        </div>
+                        <div class="login__item">
+                            <div class="login__button">
+                                <input type="submit" value="Login">
+                            </div>
+                            <div class="login__button">
+                                <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                <input type="submit" value="Or sign-in with Google">
+                            </div>
+                            
+                        </div>
+                    </form>
+                </div>
+        </div>
+    </main>
+  </div>
+
+  </div>
+  <script src="https://kit.fontawesome.com/68898b3846.js" crossorigin="anonymous"></script>
+  <!-- Swiper -->
+<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+<script th:src="@{js/vendors.min.js}"></script>
+<script th:src="@{js/app.min.js}"></script>
+</body>
+
+</html>

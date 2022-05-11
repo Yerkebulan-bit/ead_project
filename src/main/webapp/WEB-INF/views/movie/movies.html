@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+ <head>
+	<title>Movies</title>
+	<meta charset="UTF-8">
+	<meta name="format-detection" content="telephone=no">
+	<link rel="stylesheet" th:href="@{/css/style.min.css}">
+	<link rel="shortcut icon" href="favicon.ico">
+	<!-- <meta name="robots" content="noindex, nofollow"> -->
+	<!-- <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"> -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+
+<body>
+  <div class="wrapper">
+    <main class="page">
+      <header class="header">
+  <div class="header__container _container">
+    <div class="header__contact">
+      <a href="tel:123456789">
+        <span class="fa fa-phone"></span>
+        123 456 789
+      </a>
+    </div>
+    <div class="header__body">
+      <div class="header__logo">
+        <a href="" class="header__logo"><img th:src="@{/img/logo.svg}" alt="" /></a>
+      </div>
+      <div class="menu__icon icon-menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+      <div class="header__menu menu">
+        <nav class="menu__nav">
+          <ul class="menu__list">
+            <li>
+              <a th:href="@{/}" id="home" class="menu__link _active">HOME</a>
+            </li>
+            <li>
+              <a th:href="@{/movies}" id="movies" class="menu__link">WHAT IS ON</a>
+            </li>
+            <li><a th:href="@{/news}" id="news" class="menu__link">NEWS</a></li>
+            <li th:switch="${session.userRole}">
+              <a th:case="null" th:href="@{/login}" id="about" class="menu__link">LOGIN</a>
+              <a th:case="'admin'" th:href="@{/logout}" class="menu__link">ADMIN</a>
+              <a th:case="*" th:href="@{/logout}" th:text="${session.userRole}" class="menu__link">USER</a>
+            </li>
+            <li>
+              <a th:href="@{/contact}" id="contact" class="menu__link"
+              >CONTACT US</a
+              >
+            </li>
+          </ul>
+          <ul class="menu__social">
+            <li>
+              <a href=""><span class="fa fa-facebook-f"></span></a>
+            </li>
+            <li>
+              <a href=""><span class="fa fa-twitter"></span></a>
+            </li>
+            <li>
+              <a href=""><span class="fa fa-instagram"></span></a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="page-top">
+          <div class="page-top__container _container">
+              <div class="page-top__text">TAKE A LOOK AT</div>
+              <h1 class="page-top__title">What's on this week</h1>
+          </div>
+      </div>
+      <div class="all-movies">
+        <div class="all-movies__container _container">
+          <div class="all-movies__search">
+            <form th:action="@{/movies/search}" th:method="get">
+              <input type="text" placeholder="Type to search" name="pattern" id="pattern">
+              <input type="submit" class="all-movies__button" value="Push me!">
+            </form>
+          </div>
+          <div class="all-movies__tabs movies-tabs">
+            <nav class="movies-tabs__items">
+              <button class="movies-tabs__item _active" data-tab="#tab1">Mon</button>
+              <button class="movies-tabs__item" data-tab="#tab2">Tue</button>
+              <button class="movies-tabs__item" data-tab="#tab3">Wed</button>
+              <button class="movies-tabs__item" data-tab="#tab4">THU</button>
+              <button class="movies-tabs__item" data-tab="#tab5">FRI</button>
+              <button class="movies-tabs__item" data-tab="#tab6">SAT</button>
+              <button class="movies-tabs__item" data-tab="#tab7">TODAY</button>
+            </nav>
+            <div class="movies-tabs__body">
+
+              <div class="movies-tabs__block _active" id="tab1">
+                <div th:each="movie : ${movies}" class="movies-tabs__element movie-element">
+                  <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__image _ibg">
+                    <img th:src="${movie.getImage()}" alt="">
+                  </a>
+                  <div class="movie-element__info">
+                    <div th:text="${movie.getGenre()}" class="movie-element__genre">THRILLER, HORROR</div>
+                    <div th:text="${movie.getName()}" class="movie-element__name">Locked in</div>
+                    <div th:text="${movie.getShortDescription()}" class="movie-element__description">Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</div>
+                    <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__more">FULL SYNOPSIS</a>
+                    <div class="movie-element__bottom">
+                      <div class="movie-element__schedule">
+                        <div class="movie-element__title">VIEWING TIMES</div>
+                        <div th:each="time : ${movie.getTimetable()}" th:text="${time}" class="movie-element__time">
+                          10:00 am
+                        </div>
+                      </div>
+                      <div class="movie-element__duration">
+                        <div th:text="${movie.getDuration()}" class="movie-element__title">110 MINS</div>
+                        <div th:text="${movie.getAgeLimit()}" class="movie-element__icon">18</div>
+                        <div th:switch="${session.userRole}">
+                          <div th:case="'admin'" class="movie-element__buttons">
+                            <form th:action="@{/delete/{id}(id = ${movie.getId()})}" th:method="post">
+                              <input type="submit" value="Delete" class="movie-element__button">
+                            </form>
+                            <a th:href="@{/{id}/edit(id = ${movie.getId()})}" class="movie-element__button">Edit</a>
+                          </div>
+                          <span th:case="*"></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="movies-tabs__block" id="tab2">
+                <div th:each="movie, iterStat : ${movies}" th:if="${iterStat.even}" class="movies-tabs__element movie-element">
+                  <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__image _ibg">
+                    <img th:src="${movie.getImage()}" alt="">
+                  </a>
+                  <div class="movie-element__info">
+                    <div th:text="${movie.getGenre()}" class="movie-element__genre">THRILLER, HORROR</div>
+                    <div th:text="${movie.getName()}" class="movie-element__name">Locked in</div>
+                    <div th:text="${movie.getShortDescription()}" class="movie-element__description">Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</div>
+                    <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__more">FULL SYNOPSIS</a>
+                    <div class="movie-element__bottom">
+                      <div class="movie-element__schedule">
+                        <div class="movie-element__title">VIEWING TIMES</div>
+                        <div th:each="time : ${movie.getTimetable()}" th:text="${time}" class="movie-element__time">
+                          10:00 am
+                        </div>
+                      </div>
+                      <div class="movie-element__duration">
+                        <div th:text="${movie.getDuration()}" class="movie-element__title">110 MINS</div>
+                        <div th:text="${movie.getAgeLimit()}" class="movie-element__icon">18</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="movies-tabs__block"   >
+                <div th:each="movie, iterStat : ${movies}" th:if="${iterStat.odd}" class="movies-tabs__element movie-element">
+                  <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__image _ibg">
+                    <img th:src="${movie.getImage()}" alt="">
+                  </a>
+                  <div class="movie-element__info">
+                    <div th:text="${movie.getGenre()}" class="movie-element__genre">THRILLER, HORROR</div>
+                    <div th:text="${movie.getName()}" class="movie-element__name">Locked in</div>
+                    <div th:text="${movie.getShortDescription()}" class="movie-element__description">Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</div>
+                    <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__more">FULL SYNOPSIS</a>
+                    <div class="movie-element__bottom">
+                      <div class="movie-element__schedule">
+                        <div class="movie-element__title">VIEWING TIMES</div>
+                        <div th:each="time : ${movie.getTimetable()}" th:text="${time}" class="movie-element__time">
+                          10:00 am
+                        </div>
+                      </div>
+                      <div class="movie-element__duration">
+                        <div th:text="${movie.getDuration()}" class="movie-element__title">110 MINS</div>
+                        <div th:text="${movie.getAgeLimit()}" class="movie-element__icon">18</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="movies-tabs__block" id="tab4">
+                <div th:each="movie, iterStat : ${movies}" th:if="${iterStat.odd}" class="movies-tabs__element movie-element">
+                  <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__image _ibg">
+                    <img th:src="${movie.getImage()}" alt="">
+                  </a>
+                  <div class="movie-element__info">
+                    <div th:text="${movie.getGenre()}" class="movie-element__genre">THRILLER, HORROR</div>
+                    <div th:text="${movie.getName()}" class="movie-element__name">Locked in</div>
+                    <div th:text="${movie.getShortDescription()}" class="movie-element__description">Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</div>
+                    <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__more">FULL SYNOPSIS</a>
+                    <div class="movie-element__bottom">
+                      <div class="movie-element__schedule">
+                        <div class="movie-element__title">VIEWING TIMES</div>
+                        <div th:each="time : ${movie.getTimetable()}" th:text="${time}" class="movie-element__time">
+                          10:00 am
+                        </div>
+                      </div>
+                      <div class="movie-element__duration">
+                        <div th:text="${movie.getDuration()}" class="movie-element__title">110 MINS</div>
+                        <div th:text="${movie.getAgeLimit()}" class="movie-element__icon">18</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="movies-tabs__block" id="tab5">
+                <div th:each="movie, iterStat : ${movies}" th:if="${iterStat.even}" class="movies-tabs__element movie-element">
+                  <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__image _ibg">
+                    <img th:src="${movie.getImage()}" alt="">
+                  </a>
+                  <div class="movie-element__info">
+                    <div th:text="${movie.getGenre()}" class="movie-element__genre">THRILLER, HORROR</div>
+                    <div th:text="${movie.getName()}" class="movie-element__name">Locked in</div>
+                    <div th:text="${movie.getShortDescription()}" class="movie-element__description">Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</div>
+                    <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__more">FULL SYNOPSIS</a>
+                    <div class="movie-element__bottom">
+                      <div class="movie-element__schedule">
+                        <div class="movie-element__title">VIEWING TIMES</div>
+                        <div th:each="time : ${movie.getTimetable()}" th:text="${time}" class="movie-element__time">
+                          10:00 am
+                        </div>
+                      </div>
+                      <div class="movie-element__duration">
+                        <div th:text="${movie.getDuration()}" class="movie-element__title">110 MINS</div>
+                        <div th:text="${movie.getAgeLimit()}" class="movie-element__icon">18</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="movies-tabs__block" id="tab6">
+                <div th:each="movie, iterStat : ${movies}" th:if="${iterStat.even}" class="movies-tabs__element movie-element">
+                  <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__image _ibg">
+                    <img th:src="${movie.getImage()}" alt="">
+                  </a>
+                  <div class="movie-element__info">
+                    <div th:text="${movie.getGenre()}" class="movie-element__genre">THRILLER, HORROR</div>
+                    <div th:text="${movie.getName()}" class="movie-element__name">Locked in</div>
+                    <div th:text="${movie.getShortDescription()}" class="movie-element__description">Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</div>
+                    <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__more">FULL SYNOPSIS</a>
+                    <div class="movie-element__bottom">
+                      <div class="movie-element__schedule">
+                        <div class="movie-element__title">VIEWING TIMES</div>
+                        <div th:each="time : ${movie.getTimetable()}" th:text="${time}" class="movie-element__time">
+                          10:00 am
+                        </div>
+                      </div>
+                      <div class="movie-element__duration">
+                        <div th:text="${movie.getDuration()}" class="movie-element__title">110 MINS</div>
+                        <div th:text="${movie.getAgeLimit()}" class="movie-element__icon">18</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="movies-tabs__block" id="tab7">
+                <div th:each="movie, iterStat : ${movies}" th:if="${iterStat.even}" class="movies-tabs__element movie-element">
+                  <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__image _ibg">
+                    <img th:src="${movie.getImage()}" alt="">
+                  </a>
+                  <div class="movie-element__info">
+                    <div th:text="${movie.getGenre()}" class="movie-element__genre">THRILLER, HORROR</div>
+                    <div th:text="${movie.getName()}" class="movie-element__name">Locked in</div>
+                    <div th:text="${movie.getShortDescription()}" class="movie-element__description">Claritas est etiam processus dynamicus, qui sequitur mutationem consuetudium lectorum. Mirum est notare quam littera gothica, quam nunc putamus parum claram, anteposuerit litterarum formas humanitatis per seacula quarta decima et quinta decima.</div>
+                    <a th:href="@{/movies/{id}(id = ${movie.getId()})}" class="movie-element__more">FULL SYNOPSIS</a>
+                    <div class="movie-element__bottom">
+                      <div class="movie-element__schedule">
+                        <div class="movie-element__title">VIEWING TIMES</div>
+                        <div th:each="time : ${movie.getTimetable()}" th:text="${time}" class="movie-element__time">
+                          10:00 am
+                        </div>
+                      </div>
+                      <div class="movie-element__duration">
+                        <div th:text="${movie.getDuration()}" class="movie-element__title">110 MINS</div>
+                        <div th:text="${movie.getAgeLimit()}" class="movie-element__icon">18</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+              <div th:switch="${session.userRole}">
+                <a th:case="'admin'" th:href="@{/new}" class="movie-element__create">Create new</a>
+                <a th:case="*"></a>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-us">
+        <h2 class="contact-us__text">Need help? Contact our support team on</h2>
+        <h1 class="contact-us__phone">0330 123 4567</h1>
+      </div>
+    </main>
+  </div>
+
+  <footer class="footer">
+  <div class="footer__container _container">
+    <div class="footer__body">
+      <div class="footer__column">
+        <div class="footer__title">GET IN TOUCH</div>
+        <ul class="footer__list">
+          <li><a href="index.html" class="footer__link">Home</a></li>
+          <li><a href="movies.html" class="footer__link">Movies</a></li>
+          <li><a href="news.html" class="footer__link">News</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <div class="footer__title">ABOUT OUR ORGANISATION</div>
+        <ul class="footer__list">
+          <li><a href="contact.html" class="footer__link">About</a></li>
+          <li><a href="contact.html" class="footer__link">FAQs</a></li>
+          <li><a href="contact.html" class="footer__link">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <div class="footer__title">LEGAL STUFF</div>
+        <ul class="footer__list">
+          <li><a href="contact.html" class="footer__link">FAQs</a></li>
+          <li>
+            <a href="contact.html" class="footer__link">Give us feedback</a>
+          </li>
+          <li><a href="contact.html" class="footer__link">Contact us</a></li>
+        </ul>
+      </div>
+      <div class="footer__column">
+        <div class="footer__title">CONNECT WITH US</div>
+        <ul class="footer__list">
+          <li>
+            <a href="" class="footer__link"
+              ><span class="fa fa-facebook-f"></span>Facebook</a
+            >
+          </li>
+          <li>
+            <a href="" class="footer__link"
+              ><span class="fa fa-twitter"></span>Twitter</a
+            >
+          </li>
+          <li>
+            <a href="" class="footer__link"
+              ><span class="fa fa-instagram"></span>Instagram</a
+            >
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bottom">2022 © Amanis Paltiyeva</div>
+  </div>
+</footer>
+
+  </div>
+
+
+  <script src="https://kit.fontawesome.com/68898b3846.js" crossorigin="anonymous"></script>
+  <!-- Swiper -->
+<!-- <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> -->
+<script th:src="@{/js/vendors.min.js}"></script>
+<script th:src="@{/js/app.min.js}"></script>
+</body>
+
+</html>
